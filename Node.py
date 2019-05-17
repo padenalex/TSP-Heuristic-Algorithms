@@ -1,6 +1,8 @@
 class Node():
 
 	def __init__(self):
+		#self.head can use this use this to check if head when i make true head 0 0 cords
+		#set NodeLL head to node constructor index 0 x 0 y 0 head=true
 		self.next = None
 		self.prev = None
 		self.__index = None
@@ -35,3 +37,6 @@ class Node():
 
 	def getNext(self):
 		return self.next
+
+	def getPrev(self):
+		return self.prev

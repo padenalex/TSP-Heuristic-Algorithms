@@ -1,16 +1,10 @@
 from Node import Node
 from math import sqrt, pow
+import random
 class TSPNodesLL:
 
 	def __init__(self):
 		self.head = None
-
-	#new node at beginning of list
-	def push(self, new_node):
-		new_node.next = self.head
-		if self.head is not None:
-			self.head.prev = new_node
-		self.head = new_node
 
 	#insert new node after nother node
 	def insertAfter(self, prev_node, new_node):
@@ -53,6 +47,13 @@ class TSPNodesLL:
 		last.next = new_node
 		new_node.prev = last
 
+	#new node at beginning of list
+	def push(self, new_node):
+		new_node.next = self.head
+		if self.head is not None:
+			self.head.prev = new_node
+		self.head = new_node
+
 
 	def printList(self):
 		current_node = self.head
@@ -72,6 +73,32 @@ class TSPNodesLL:
 			node2 = node2.getNext()
 			#print(total_cost)
 		return total_cost
+
+	def resetList(self):
+		self.head = None
+
+	def listSize(self):
+		node = self.head
+		i = 0
+		while(node is not None):
+			i += 1
+			node = node.getNext()
+		return i
+
+	def shuffleList(self):
+		node_set = []
+		size = self.listSize()
+		node = self.head 
+		while node is not None:
+			node_set.append(node)
+			node = node.getNext()
+		random.shuffle(node_set)
+		self.head = None #prob need to fix this when I change head setup to 0 0 instead of none
+		for i in range(0, len(node_set)):
+			self.append(node_set[i])
+
+
+
 
 
 
