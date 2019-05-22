@@ -99,6 +99,14 @@ class TSPNodesLL:
 		for i in range(0, len(node_set)):
 			self.append(node_set[i])
 
+	def copyList(self):
+		newList = TSPNodesLL()
+		node = self.head
+		while node is not None:
+			copyNode = Node().copyNode(node)
+			newList.append(copyNode)
+			node = node.getNext()
+		return newList
 
 
 

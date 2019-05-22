@@ -39,3 +39,20 @@ class Node():
 
 	def getPrev(self):
 		return self.prev
+
+	def copyNode(self, original_node):
+		self.next = original_node.getNext()
+		self.prev = original_node.getPrev()
+		self.__index = original_node.getIndex()
+		self.__xcord = original_node.getXCord()
+		self.__ycord = original_node.getYCord()
+		return self
+
+
+
+
+
+
+
+
+
