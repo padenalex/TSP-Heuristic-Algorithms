@@ -1,5 +1,5 @@
-from NodesLL import TSPNodesLL
-from Node import Node
+from .NodesLL import TSPNodesLL
+from .Node import Node
 import pandas as pd
 
 

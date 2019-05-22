@@ -1,8 +1,7 @@
 class Node():
 
 	def __init__(self):
-		#self.head can use this use this to check if head when i make true head 0 0 cords
-		#set NodeLL head to node constructor index 0 x 0 y 0 head=true
+		#Could make a starting location from avg of all nodes (or such) rather than using one of the points but will skew from public best results comparison
 		self.next = None
 		self.prev = None
 		self.__index = None

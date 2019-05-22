@@ -1,11 +1,11 @@
-from NodesLL import TSPNodesLL
-from Node import Node
-from FileReader import FileReader
-from GraphTSP import createTSPGraph
+from TSP.NodesLL import TSPNodesLL
+from TSP.Node import Node
+from TSP.FileReader import FileReader
+from TSP.GraphTSP import createTSPGraph
+from TSP.Firefly import Firefly
 import matplotlib.pyplot as plt
 from os import getcwd
 
-#TODO Need to make permanent head of 0,0
 
 def main(): 
 	cwd = getcwd()
@@ -32,22 +32,23 @@ def main():
 
 	x = FileReader(filename, newLL2)
 	sample = x.generateLL()
-	print()
-	print("run")
-	print()
+
+	print("\n run \n")
+
 	sample.printList()
 	print()
+	print(sample.costFinder())
 	#print(sample.costFinder())
 	plt = createTSPGraph(sample)
 
 	#sample.resetList()
-	sample.printList()
-	print("s")
-	sample.shuffleList()
-	sample.printList()
+	#sample.printList()
+	#print("s")
+	#sample.shuffleList()
+	#sample.printList()
 	plt.show()
-	t = createTSPGraph(sample)
-	t.show()
+	#t = createTSPGraph(sample)
+	#t.show()
 
 if __name__ == "__main__":
 	main()

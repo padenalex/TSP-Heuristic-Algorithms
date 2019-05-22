@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
-from NodesLL import TSPNodesLL
-from Node import Node
+from .NodesLL import TSPNodesLL
+from .Node import Node
 
 
 #plt.arrow(0,0,1,3)

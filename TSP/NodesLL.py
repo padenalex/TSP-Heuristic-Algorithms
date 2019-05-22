@@ -1,4 +1,4 @@
-from Node import Node
+from .Node import Node
 from math import sqrt, pow
 import random
 class TSPNodesLL:
@@ -64,6 +64,7 @@ class TSPNodesLL:
 
 
 	def costFinder(self):
+		head = self.head
 		node1 = self.head
 		node2 = node1.getNext()
 		total_cost = 0
@@ -72,6 +73,7 @@ class TSPNodesLL:
 			node1 = node1.getNext()
 			node2 = node2.getNext()
 			#print(total_cost)
+		total_cost += sqrt((pow(node1.getXCord() - head.getXCord(), 2)) + (pow(node1.getYCord() - head.getYCord(), 2))) 
 		return total_cost
 
 	def resetList(self):
@@ -93,7 +95,7 @@ class TSPNodesLL:
 			node_set.append(node)
 			node = node.getNext()
 		random.shuffle(node_set)
-		self.head = None #prob need to fix this when I change head setup to 0 0 instead of none
+		self.head = None 
 		for i in range(0, len(node_set)):
 			self.append(node_set[i])
 
