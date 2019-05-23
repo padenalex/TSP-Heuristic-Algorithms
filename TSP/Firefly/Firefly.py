@@ -7,6 +7,7 @@ class Firefly():
 		self.ogList = ogList
 		self.popsize = popsize
 		self.generations = generations
+		self.brightest = ogList
 
 	def performFirefly(self):
 		ffPopulation = []
@@ -16,10 +17,25 @@ class Firefly():
 			temp = orig_list.copyList()
 			temp.shuffleList()
 			ffPopulation.append(temp)
-		
 
-		#for i in range(0, self.popsize):
-			#print(i)
-			#print(ffPopulation[i].printList())
-			#print(ffPopulation[i].listSize())
+		#operators()
+		#returnBrightest()
 
+
+
+	#def trimPop():
+	#If I store the top (n) costs along with their index I wont have to double lists and then trim them because I can just keep popping the highest cost
+
+	#def xToy(self, best_fly, random_fly):
+
+
+	#def yTox(self, best_fly, random_fly):
+
+
+	#def xFromy(self, best_fly, random_fly):
+
+
+	#def yFromx(self, best_fly, random_fly):
+
+
+	#def mutation(self, best_fly):
