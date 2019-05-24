@@ -3,6 +3,7 @@ from math import sqrt, pow
 import random
 class TSPNodesLL:
 
+	#ideally add a configuration file to hold basic info like tsp size to prevent uneeded repeats
 	def __init__(self):
 		self.head = None
 
@@ -108,9 +109,22 @@ class TSPNodesLL:
 			node = node.getNext()
 		return newList
 
+	def getPosByIndex(self, index):
+		position = 0
+		node = self.head
+		while node is not None:
+			if node.getIndex() == index:
+				return position
+			position += 1
+			node = node.getNext()
+		return print("error in find pos by index")
 
-
-
+	def getIndexByPos(self, pos):
+		node = self.head
+		for _ in range(0, pos-1):
+			node = node.getNext()
+		index = node.getIndex()
+		return index
 
 
 

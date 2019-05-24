@@ -13,7 +13,7 @@ class FileReader():
 	def generateLL(self):
 		file = self.loadFile()
 		self.excelToNodes(file)
-		return self.__nodesLL
+		#return self.__nodesLL
 	
 	#Pull file from excel using filename	
 	def loadFile(self):
