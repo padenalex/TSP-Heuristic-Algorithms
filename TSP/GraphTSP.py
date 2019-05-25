@@ -6,7 +6,6 @@ from .Node import Node
 #plt.arrow(0,0,1,3)
 #plt.arrow(1,3,2,4)
 #plt.show()
-print("Dd")
 
 def createTSPGraph(nodesLL):
     #plt.plot(0, 0,150,150)

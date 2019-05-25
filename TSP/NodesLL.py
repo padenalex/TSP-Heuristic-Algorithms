@@ -55,14 +55,12 @@ class TSPNodesLL:
 			self.head.prev = new_node
 		self.head = new_node
 
-
 	def printList(self):
 		current_node = self.head
 		while current_node is not None:
 			print(current_node.getIndex(), end=", ") 
 			current_node = current_node.next
 		print()
-
 
 	def costFinder(self):
 		head = self.head
@@ -126,7 +124,20 @@ class TSPNodesLL:
 		index = node.getIndex()
 		return index
 
-
+	def removeNode(self, node):
+		prev_node = node.getPrev()
+		next_node = node.getNext()
+		if prev_node is not None and next_node is not None:
+			prev_node.next = next_node
+			next_node.prev = prev_node
+		elif prev_node is None:
+			next_node.prev = None
+			self.head = next_node
+		elif next_node is None:
+			prev_node.next = None
+		else:
+			print("error removing node")
+		
 
 
 
