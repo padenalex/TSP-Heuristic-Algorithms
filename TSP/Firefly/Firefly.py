@@ -18,23 +18,25 @@ class Firefly():
 			temp = orig_list.copyList()
 			temp.shuffleList()
 			self.ffPop.append(temp)
-
-		print("bright is")
-		print(self.findBrightest().costFinder())
-		edge_set = self.findEdges(self.brightest, self.ffPop[3])
-		print(edge_set)
-		self.yFromx(self.ffPop[3], edge_set)
-		self.mutation(self.brightest)
+		for x in range(0, self.generations):
+			for i in range(0, self.popsize):
+				edge_set = self.findEdges(self.brightest, self.ffPop[3])
+				self.mutation(self.brightest)
+				self.xToy(self.ffPop[i], edge_set)
+				self.yTox(self.ffPop[i], edge_set)
+				self.xFromy(self.ffPop[i], edge_set)
+				self.yFromx(self.ffPop[i], edge_set)
+			self.trimPop()
+			print(self.brightest.costFinder())
 		#operators()
 		#returnBrightest()
 
 	def findBrightest(self):
-		brightest = 99999999
-		bright_node = None
+		brighter = 99999999
 		for i in range(0, len(self.ffPop)):
 			temp = self.ffPop[i].costFinder()
-			if temp < brightest:
-				brightest = temp
+			if temp < brighter:
+				brighter = temp
 				self.brightest = self.ffPop[i]
 		return self.brightest
 
@@ -105,6 +107,35 @@ class Firefly():
 		return edges
 
 	#  ---X--------Y---
+	#  ---Y~~~~~~~~X---
+	def mutation(self, best_fly):
+		random1 = random.randint(1, best_fly.listSize())
+		random2 = random.randint(1, best_fly.listSize())
+		new_fly = best_fly.copyList()
+		node_set = []
+		best_fly.printList()
+		print(random1, random2)
+		#had error where numbers are off by 1 the first num wasn't in the list anymore looks like it would be a dupe?
+		while random1 == random2:
+			random2 = random.randint(1, new_fly.listSize())
+		if random1 > random2:
+			temp = random1
+			random1 = random2
+			random2 = temp
+		node1 = new_fly.getNodeByIndex(new_fly.getIndexByPos(random1))
+		node2 = new_fly.getNodeByIndex(new_fly.getIndexByPos(random2))
+		#print(new_fly.getIndexByPos(random1), new_fly.getIndexByPos(random2))
+		while node1 is not node2:
+			node_set.append(node1)
+			node1 = node1.getNext()
+		node1 = new_fly.getNodeByIndex(new_fly.getIndexByPos(random1))
+		for node in node_set[::-1]:
+			new_fly.removeNode(node)
+			new_fly.insertAfter(node1, node)
+			node1 = node1.getNext()
+		self.ffPop.append(new_fly)
+
+	#  ---X--------Y---
 	#  -----------XY---
 	def xToy(self, random_fly, edges):
 		x_edge = []
@@ -115,9 +146,6 @@ class Firefly():
 			temp_node = new_fly.getNodeByIndex(x_index)
 			new_fly.removeNode(temp_node)
 			new_fly.insertBefore(y_node, temp_node)
-		print("in here")
-		random_fly.printList()
-		new_fly.printList()
 		self.ffPop.append(new_fly)
 
 	#  ---X--------Y---
@@ -131,8 +159,6 @@ class Firefly():
 			temp_node = new_fly.getNodeByIndex(y_index)
 			new_fly.removeNode(temp_node)
 			new_fly.insertAfter(x_node, temp_node)
-		random_fly.printList()
-		new_fly.printList()
 		self.ffPop.append(new_fly)
 
 	#  ---X--------Y---
@@ -151,8 +177,6 @@ class Firefly():
 			temp_node = new_fly.getNodeByIndex(y_index)
 			new_fly.removeNode(temp_node)
 			new_fly.insertBefore(x_node, temp_node)
-		random_fly.printList()
-		new_fly.printList()
 		self.ffPop.append(new_fly)
 
 
@@ -172,40 +196,24 @@ class Firefly():
 			temp_node = new_fly.getNodeByIndex(x_index)
 			new_fly.removeNode(temp_node)
 			new_fly.insertAfter(y_node, temp_node)
-		random_fly.printList()
-		new_fly.printList()
 		self.ffPop.append(new_fly)
 
-	#  ---X--------Y---
-	#  ---Y~~~~~~~~X---
-	def mutation(self, best_fly):
-		random1 = random.randint(1, best_fly.listSize())
-		random2 = random.randint(1, best_fly.listSize())
-		new_fly = best_fly.copyList()
-		node_set = []
-		#had error where numbers are off by 1 the first num wasn't in the list anymore looks like it would be a dupe?
-		while random1 == random2:
-			random2 = random.randint(1, new_fly.listSize())
-		if random1 > random2:
-			temp = random1
-			random1 = random2
-			random2 = temp
-		node1 = new_fly.getNodeByIndex(new_fly.getIndexByPos(random1))
-		node2 = new_fly.getNodeByIndex(new_fly.getIndexByPos(random2))
-		print(random1, random2)
-		print(new_fly.getIndexByPos(random1), new_fly.getIndexByPos(random2))
-		while node1 is not node2:
-			node_set.append(node1)
-			node1 = node1.getNext()
-		node1 = new_fly.getNodeByIndex(new_fly.getIndexByPos(random1))
-		for node in node_set[::-1]:
-			new_fly.removeNode(node)
-			new_fly.insertAfter(node1, node)
-			node1 = node1.getNext()
-		best_fly.printList()
-		new_fly.printList()
+	def trimPop(self):
+		new_pop = []
+		#self.ffPop
+		for i in range(0, self.popsize):
+			temp = self.findBrightest()
+			new_pop.append(temp)
+			self.ffPop.remove(temp)
+		self.ffPop = new_pop
 
-	#def trimPop():
+
+
+
+
+
+
+
 	#If I store the top (n) costs along with their index I wont have to double lists and then trim them because I can just keep popping the highest cost
 	#prob just use old way
 

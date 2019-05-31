@@ -16,7 +16,6 @@ class TSPNodesLL:
 			new_node.next.prev = new_node
 
 	def insertBefore(self, next_node, new_node):
-		print(self.head.getIndex())
 		new_node.next = next_node
 		new_node.prev = next_node.prev
 		if new_node.prev is not None:
@@ -28,6 +27,7 @@ class TSPNodesLL:
     #Find node given the index
 	def getNodeByIndex(self, index):
 		current_node = self.head
+		#self.printList()
 		while(current_node.getIndex() != index):
 			current_node = current_node.next
 			if current_node is None: 

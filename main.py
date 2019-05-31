@@ -9,14 +9,15 @@ from os import getcwd
 
 def main(): 
 	cwd = getcwd()
-	filename = cwd + '/Problem_Sets/burma14.xlsx'
+	filename = cwd + '/Problem_Sets/a280.xlsx'
 	newLL = TSPNodesLL()
 	x = FileReader(filename, newLL).generateLL()
 	newLL.printList()
-	firefly = Firefly.Firefly(newLL, 10, 0).performFirefly()
+	print(newLL.costFinder())
+	firefly = Firefly.Firefly(newLL, 20, 30).performFirefly()
 	#newLL.removeNode(newLL.getNodeByIndex(14))
 	#newLL.printList()
-	#plt.show()
+	plt.show()
 	#t = createTSPGraph(sample)
 	#t.show()
 
