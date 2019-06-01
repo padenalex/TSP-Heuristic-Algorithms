@@ -7,9 +7,7 @@ import matplotlib.pyplot as plt
 from os import getcwd
 
 #TODO
-#Fix Mutation Error
-#Mutation error is when it grabs a location 1 I think pulls prev as null then runs ops on it
-#Fix Duplicates in Trim List (Just random mutate them)
+#Manage Duplicates in Trim List (Just random mutate them)
 
 def main(): 
 	cwd = getcwd()

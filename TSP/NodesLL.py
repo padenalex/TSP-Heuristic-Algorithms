@@ -27,8 +27,6 @@ class TSPNodesLL:
     #Find node given the index
 	def getNodeByIndex(self, index):
 		current_node = self.head
-		#print("print list in getnodebyin")
-		#self.printList()
 		while(current_node.getIndex() != index):
 			current_node = current_node.next
 			if current_node is None: 

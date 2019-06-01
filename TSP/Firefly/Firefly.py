@@ -28,8 +28,6 @@ class Firefly():
 				self.mutation(self.brightest)
 			self.trimPop()
 			print(self.brightest.costFinder())
-		#operators()
-		#returnBrightest()
 
 	def findBrightest(self):
 		brighter = 99999999
@@ -61,8 +59,6 @@ class Firefly():
 			random_node2 = temp
 		backup_r1 = Node().copyNode(random_node1)
 		backup_r2 = Node().copyNode(random_node2)
-		#best_fly.printList()
-		#random_fly.printList()
 		
 		# Create X set of edges
 		# This will take the X (left) location based on the best_fly and work outwords to determine if the random_list has any matching nodes to collect in a set
@@ -109,47 +105,29 @@ class Firefly():
 	#  ---X--------Y---
 	#  ---Y~~~~~~~~X---
 	def mutation(self, best_fly):
-		random1 = random.randint(2, best_fly.listSize())
-		random2 = random.randint(2, best_fly.listSize())
+		random1 = random.randint(1, best_fly.listSize())
+		random2 = random.randint(1, best_fly.listSize())
 		new_fly = best_fly.copyList()
-		node_set = []
-		while random1 == random2:
-			random2 = random.randint(2, best_fly.listSize())
-			#while index1 == 2 and index2 == best_fly.listSize():
-				#index2 = random.randint(2, best_fly.listSize())
+		while random1 == random2 :
+			random2 = random.randint(1, best_fly.listSize())
+			while random1 == 1 and random2 == best_fly.listSize() or random2 == 1 and random1 == best_fly.listSize():
+				random2 = random.randint(1, best_fly.listSize())
 		if random1 > random2:
 			temp = random1
 			random1 = random2
 			random2 = temp
 		index1 = new_fly.getIndexByPos(random1)
 		index2 = new_fly.getIndexByPos(random2)
+		range_size = (random2-random1)
 		node1 = new_fly.getNodeByIndex(index1)
 		node2 = new_fly.getNodeByIndex(index2)
-		start_node = node1.getPrev()
-		while node1.getIndex() != node2.getIndex():
-			print("yeeeet")
-			node_set.append(node1)
-			next_node = node1.getNext()
-			new_fly.removeNode(node1)
-			node1 = next_node
-		node_set.append(node2)
-		new_fly.removeNode(node2)
-		#start_node = node_set[0].getPrev()
-		print("yoo")
-		new_fly.printList()
-		print(node_set)
-		for node in node_set[::-1]:
-			print("dsdsd")
-			#print(start_node.getIndex(), node.getIndex())
-			new_fly.insertAfter(start_node, node)
-			start_node = start_node.getNext()
-		new_fly.printList()
-
-
-
-
-
-
+		for _ in range(range_size):
+			temp = node2.getPrev()
+			new_fly.removeNode(node2)
+			new_fly.insertBefore(node1, node2)
+			node2 = temp
+		self.ffPop.append(new_fly)
+			
 	#  ---X--------Y---
 	#  -----------XY---
 	def xToy(self, random_fly, edges):
@@ -222,13 +200,4 @@ class Firefly():
 			self.ffPop.remove(temp)
 		self.ffPop = new_pop
 
-
-
-
-
-
-
-
-	#If I store the top (n) costs along with their index I wont have to double lists and then trim them because I can just keep popping the highest cost
-	#prob just use old way
 
