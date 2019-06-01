@@ -21,11 +21,11 @@ class Firefly():
 		for x in range(0, self.generations):
 			for i in range(0, self.popsize):
 				edge_set = self.findEdges(self.brightest, self.ffPop[3])
-				self.mutation(self.brightest)
 				self.xToy(self.ffPop[i], edge_set)
 				self.yTox(self.ffPop[i], edge_set)
 				self.xFromy(self.ffPop[i], edge_set)
 				self.yFromx(self.ffPop[i], edge_set)
+				self.mutation(self.brightest)
 			self.trimPop()
 			print(self.brightest.costFinder())
 		#operators()
@@ -109,31 +109,46 @@ class Firefly():
 	#  ---X--------Y---
 	#  ---Y~~~~~~~~X---
 	def mutation(self, best_fly):
-		random1 = random.randint(1, best_fly.listSize())
-		random2 = random.randint(1, best_fly.listSize())
+		random1 = random.randint(2, best_fly.listSize())
+		random2 = random.randint(2, best_fly.listSize())
 		new_fly = best_fly.copyList()
 		node_set = []
-		best_fly.printList()
-		print(random1, random2)
-		#had error where numbers are off by 1 the first num wasn't in the list anymore looks like it would be a dupe?
 		while random1 == random2:
-			random2 = random.randint(1, new_fly.listSize())
+			random2 = random.randint(2, best_fly.listSize())
+			#while index1 == 2 and index2 == best_fly.listSize():
+				#index2 = random.randint(2, best_fly.listSize())
 		if random1 > random2:
 			temp = random1
 			random1 = random2
 			random2 = temp
-		node1 = new_fly.getNodeByIndex(new_fly.getIndexByPos(random1))
-		node2 = new_fly.getNodeByIndex(new_fly.getIndexByPos(random2))
-		#print(new_fly.getIndexByPos(random1), new_fly.getIndexByPos(random2))
-		while node1 is not node2:
+		index1 = new_fly.getIndexByPos(random1)
+		index2 = new_fly.getIndexByPos(random2)
+		node1 = new_fly.getNodeByIndex(index1)
+		node2 = new_fly.getNodeByIndex(index2)
+		start_node = node1.getPrev()
+		while node1.getIndex() != node2.getIndex():
+			print("yeeeet")
 			node_set.append(node1)
-			node1 = node1.getNext()
-		node1 = new_fly.getNodeByIndex(new_fly.getIndexByPos(random1))
+			next_node = node1.getNext()
+			new_fly.removeNode(node1)
+			node1 = next_node
+		node_set.append(node2)
+		new_fly.removeNode(node2)
+		#start_node = node_set[0].getPrev()
+		print("yoo")
+		new_fly.printList()
+		print(node_set)
 		for node in node_set[::-1]:
-			new_fly.removeNode(node)
-			new_fly.insertAfter(node1, node)
-			node1 = node1.getNext()
-		self.ffPop.append(new_fly)
+			print("dsdsd")
+			#print(start_node.getIndex(), node.getIndex())
+			new_fly.insertAfter(start_node, node)
+			start_node = start_node.getNext()
+		new_fly.printList()
+
+
+
+
+
 
 	#  ---X--------Y---
 	#  -----------XY---

@@ -27,11 +27,12 @@ class TSPNodesLL:
     #Find node given the index
 	def getNodeByIndex(self, index):
 		current_node = self.head
+		#print("print list in getnodebyin")
 		#self.printList()
 		while(current_node.getIndex() != index):
 			current_node = current_node.next
 			if current_node is None: 
-				print("index doesn't exist in getNodeByIndex")
+				print("index {} doesn't exist in getNodeByIndex".format(index))
 				return
 		return current_node
 
@@ -137,6 +138,8 @@ class TSPNodesLL:
 			prev_node.next = None
 		else:
 			print("error removing node")
+		node.next = None
+		node.prev = None
 		
 
 
