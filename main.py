@@ -7,16 +7,17 @@ import matplotlib.pyplot as plt
 from os import getcwd
 
 #TODO
-#Manage Duplicates in Trim List (Just random mutate them)
+#random idea double mutate after ~10% of generations with no change
 
 def main(): 
 	cwd = getcwd()
-	filename = cwd + '/Problem_Sets/burma14.xlsx'
+	filename = cwd + '/Problem_Sets/eil51.xlsx'
 	newLL = TSPNodesLL()
 	x = FileReader(filename, newLL).generateLL()
 	newLL.printList()
-	print(newLL.costFinder())
-	firefly = Firefly.Firefly(newLL, 20, 30).performFirefly()
+	#print(newLL.costFinder())
+	newLL.shuffleList()
+	firefly = Firefly.Firefly(newLL, 8, 5000).performFirefly()
 	#newLL.removeNode(newLL.getNodeByIndex(14))
 	#newLL.printList()
 	plt.show()

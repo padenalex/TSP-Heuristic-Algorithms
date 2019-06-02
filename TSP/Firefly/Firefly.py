@@ -21,11 +21,11 @@ class Firefly():
 		for x in range(0, self.generations):
 			for i in range(0, self.popsize):
 				edge_set = self.findEdges(self.brightest, self.ffPop[3])
-				self.xToy(self.ffPop[i], edge_set)
-				self.yTox(self.ffPop[i], edge_set)
-				self.xFromy(self.ffPop[i], edge_set)
-				self.yFromx(self.ffPop[i], edge_set)
-				self.mutation(self.brightest)
+				self.ffPop.append(self.xToy(self.ffPop[i], edge_set))
+				self.ffPop.append(self.yTox(self.ffPop[i], edge_set))
+				self.ffPop.append(self.xFromy(self.ffPop[i], edge_set))
+				self.ffPop.append(self.yFromx(self.ffPop[i], edge_set))
+				self.ffPop.append(self.mutation(self.brightest))
 			self.trimPop()
 			print(self.brightest.costFinder())
 
@@ -126,7 +126,7 @@ class Firefly():
 			new_fly.removeNode(node2)
 			new_fly.insertBefore(node1, node2)
 			node2 = temp
-		self.ffPop.append(new_fly)
+		return new_fly
 			
 	#  ---X--------Y---
 	#  -----------XY---
@@ -139,7 +139,7 @@ class Firefly():
 			temp_node = new_fly.getNodeByIndex(x_index)
 			new_fly.removeNode(temp_node)
 			new_fly.insertBefore(y_node, temp_node)
-		self.ffPop.append(new_fly)
+		return new_fly
 
 	#  ---X--------Y---
 	#  ---XY-----------
@@ -152,7 +152,7 @@ class Firefly():
 			temp_node = new_fly.getNodeByIndex(y_index)
 			new_fly.removeNode(temp_node)
 			new_fly.insertAfter(x_node, temp_node)
-		self.ffPop.append(new_fly)
+		return new_fly
 
 	#  ---X--------Y---
 	#  ------------YX--
@@ -170,8 +170,7 @@ class Firefly():
 			temp_node = new_fly.getNodeByIndex(y_index)
 			new_fly.removeNode(temp_node)
 			new_fly.insertBefore(x_node, temp_node)
-		self.ffPop.append(new_fly)
-
+		return new_fly
 
 	#  ---X--------Y---
 	#  ---YX-----------
@@ -189,7 +188,7 @@ class Firefly():
 			temp_node = new_fly.getNodeByIndex(x_index)
 			new_fly.removeNode(temp_node)
 			new_fly.insertAfter(y_node, temp_node)
-		self.ffPop.append(new_fly)
+		return new_fly
 
 	def trimPop(self):
 		new_pop = []
@@ -199,5 +198,41 @@ class Firefly():
 			new_pop.append(temp)
 			self.ffPop.remove(temp)
 		self.ffPop = new_pop
+		self.brightest = self.ffPop[0]
+		self.checkDuplicates()
+
+	def checkDuplicates(self):
+		for i in range(0, len(self.ffPop)):
+			for x in range(i+1, len(self.ffPop)):
+				if self.ffPop[i].storeList() == self.ffPop[x].storeList():
+					self.ffPop[x] = self.mutation(self.ffPop[x])
+					#print("it ran")
+					#print(i, x)
+					#print(self.ffPop[i].storeList())
+					#print(self.ffPop[x].storeList())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

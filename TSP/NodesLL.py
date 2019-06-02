@@ -61,6 +61,14 @@ class TSPNodesLL:
 			current_node = current_node.next
 		print()
 
+	def storeList(self):
+		index_list = []
+		current_node = self.head
+		while current_node is not None:
+			index_list.append(current_node.getIndex())
+			current_node = current_node.next
+		return index_list
+
 	def costFinder(self):
 		head = self.head
 		node1 = self.head
