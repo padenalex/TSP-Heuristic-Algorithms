@@ -28,6 +28,7 @@ class Firefly():
 				self.ffPop.append(self.mutation(self.brightest))
 			self.trimPop()
 			print(self.brightest.costFinder())
+		return self.brightest
 
 	def findBrightest(self):
 		brighter = 99999999

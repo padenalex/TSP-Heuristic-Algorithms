@@ -8,6 +8,7 @@ from os import getcwd
 
 #TODO
 #random idea double mutate after ~10% of generations with no change
+#optimize trimp population because it's v/ inefficient atm
 
 def main(): 
 	cwd = getcwd()
@@ -17,12 +18,12 @@ def main():
 	newLL.printList()
 	#print(newLL.costFinder())
 	newLL.shuffleList()
-	firefly = Firefly.Firefly(newLL, 8, 5000).performFirefly()
+	firefly = Firefly.Firefly(newLL, 8, 500).performFirefly()
 	#newLL.removeNode(newLL.getNodeByIndex(14))
 	#newLL.printList()
 	plt.show()
-	#t = createTSPGraph(sample)
-	#t.show()
+	t = createTSPGraph(firefly)
+	t.show()
 
 if __name__ == "__main__":
 	main()
