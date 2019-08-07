@@ -9,6 +9,7 @@ from os import getcwd
 #TODO
 #random idea double mutate after ~10% of generations with no change
 #optimize trimp population because it's v/ inefficient atm
+#try a greedy alg list for the initial population with high mutation probability at start 
 
 def main(): 
 	cwd = getcwd()
